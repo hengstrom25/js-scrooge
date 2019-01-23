@@ -3,6 +3,7 @@ before_action :logged_in?
 
 	def index
 		budgets = Budget.where(user_id: current_user.id)
+		@budgets = Budget.all #to get json to work for now
 		render json: budgets
 	end
 	

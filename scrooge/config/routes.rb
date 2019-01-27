@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post '/signin' => 'sessions#create'
   get '/auth/facebook/callback', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy', as: 'logout'
+
   #post 'logout', to: 'sessions#destroy'
   
   resources :users do #only: [:new, :create, :show]
@@ -27,5 +28,5 @@ delete 'logout' => 'sessions#destroy'
 	
 	get '/big' => 'transactions#big'
 	
-
+ 	get '/api/budgets' => 'budgets_api#index'
 end

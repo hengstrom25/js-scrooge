@@ -19,11 +19,13 @@ function getBudgets() {
 	})
 }
 
-class Budget (
-constructor(obj){
-this.name = obj.name
+class Budget {
+	constructor(name, amount, user_id) {
+		this.name = name;
+		this.amount = amount;
+		this.user_id = user_id
+	};
 }
-)
 
 Budget.prototype.showBudgetDetails= function() {
 return(`

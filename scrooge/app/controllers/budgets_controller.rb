@@ -2,14 +2,11 @@ class BudgetsController < ApplicationController
 before_action :logged_in?
 
 	def index
-		budgets = Budget.where(user_id: current_user.id)
-		#@budgets = Budget.all #to get json to work for now
-		render json: budgets
+		@budgets = Budget.where(user_id: current_user.id)
 	end
 	
 	def show
 		@budget = Budget.find_by(id: params[:id])
-		render json: @budget
 	end
 	
 	def new

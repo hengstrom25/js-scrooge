@@ -1,7 +1,17 @@
 <h2>Your Budgets</h2>
-	<% @budgets.each do |budget| %>
-	<h3><%= link_to "#{budget.name}", budget_path(budget) %></h3>
-	<% end %>
+<div id="budgets"></div>
+
 	<p></p>
 	<%= link_to 'Add New Budget', new_budget_path %>
 
+<script type="text/javascript">
+$(function() {
+	$.get('/api/budgets', function(data) {
+		var s = '';
+		data.forEach(function(budget) {
+			s += '<h3><a href= "/budgets/'+budget.id+'">'+budget.name+'</a></h3>';
+		});
+		$('#budgets').html(s);
+	});
+});
+</script>

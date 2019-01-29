@@ -24,4 +24,27 @@
 
 	<%= f.submit %>
 	
+<div id="budgetResult">
+	<h2 id="budgetName"></h2>
+	<p id="budgetAmount"></p>
+</div>
+
+<script type="text/javascript">
+$function() {
+	$('form').submit(function(event) {
+		event.preventDefault();
+		
+		var values = $(this).serialize();
+		
+		var posting = $.post('/budgets', values);
+		
+		posting.done(function(data) {
+		var budget = data;
+		$('#budgetName').text(budget['name']);
+		$('#budgetAmount').text(budget['amount']);
+		});
+	});
+});
+</script>	
+	
 	<% end %>

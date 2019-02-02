@@ -5,5 +5,10 @@ class BudgetsApiController < ApplicationController
 		render json: budgets
 	end
 	
+	def show
+		budget = Budget.find_by(id: params[:id])
+		render json: budget
+	end
+	
 
 end

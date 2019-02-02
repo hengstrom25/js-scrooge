@@ -6,7 +6,8 @@ before_action :logged_in?
 	end
 	
 	def show
-		@budget = Budget.find_by(id: params[:id])
+		@id = params[:id] #for javascript 
+		@budget = Budget.find_by(id: params[:id]) #for ruby links
 	end
 	
 	def new

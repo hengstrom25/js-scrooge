@@ -1,7 +1,7 @@
-$function() {
+$(function() {
 	console.log('budget.js loaded...');
-	getBudgets()
-}
+	getBudgets();
+});
 
 function getBudgets() {
 	$.ajax({

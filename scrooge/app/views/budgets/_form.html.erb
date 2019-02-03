@@ -1,50 +1,41 @@
 <h1>Budget</h1>
-<%= form_for @budget do |f| %>
-
-  <% if @budget.errors.any? %>
-    <div id="error_explanation">
-      <p>Please see following errors:</p>
-      <ul>
-        <% @budget.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 	
-	<div class="field<%= ' field_with_errors' if @budget.errors[:name].any? %>">
-	<%= f.label :name %><br>
-	<%= f.text_field :name %><br><br>
+<form>
+	<div>
+	Name:<br>
+	<input id="name"><br><br>
 	</div>
 	
-	<div class="field<%= ' field_with_errors' if @budget.errors[:amount].any? %>">
-	<%= f.label :amount %><br>
-	<%= f.number_field :amount %><br><br>
+	<div>
+	Amount:<br>
+	<input id="amount"><br><br>
 	</div>
 
-	<%= f.submit %>
-	
-<div id="budgetResult">
-	<h2 id="budgetName"></h2>
-	<p id="budgetAmount"></p>
-</div>
+	<input type="submit">
+</form>
 
 <script type="text/javascript">
-$function() {
+$(function() {
+	$.get('/api/budget/<%=@id%>', function(data) {
+	console.log("here is the data", data);
+		$('#name').val(data.name);
+		$('#amount').val(data.amount);
+	});
 	$('form').submit(function(event) {
+	console.log("submit");
 		event.preventDefault();
 		
 		var values = $(this).serialize();
 		
-		var posting = $.post('/budgets', values);
+		var posting = $.post('/api/budget/<%=@id%>', values);
 		
 		posting.done(function(data) {
 		var budget = data;
-		$('#budgetName').text(budget['name']);
-		$('#budgetAmount').text(budget['amount']);
+		$('#name').text(budget['name']);
+		$('#amount').text(budget['amount']);
 		});
 	});
 });
 </script>	
 	
-	<% end %>
+

@@ -27,6 +27,7 @@ before_action :logged_in?
 	end
 	
 	def edit
+		@id = params[:id]
 		@budget = Budget.find_by(id: params[:id])
 	end
 	

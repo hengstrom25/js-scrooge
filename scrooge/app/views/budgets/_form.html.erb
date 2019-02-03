@@ -16,11 +16,11 @@
 
 <script type="text/javascript">
 $(function() {
-	$.get('/api/budget/<%=@id%>', function(data) {
-	console.log("here is the data", data);
-		$('#name').val(data.name);
-		$('#amount').val(data.amount);
-	});
+	//$.get('/api/budget/<%=@id%>', function(data) {
+	//console.log("here is the data", data);
+	//	$('#name').val(data.name);
+	//	$('#amount').val(data.amount);
+	//});
 	$('form').submit(function(event) {
 	console.log("submit");
 		event.preventDefault();

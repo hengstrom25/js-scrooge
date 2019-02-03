@@ -7,7 +7,7 @@ class BudgetsApiController < ApplicationController
 	
 	def show
 		budget = Budget.find_by(id: params[:id])
-		render json: budget
+		render json: budget.to_json(:methods => [:current_amount])
 	end
 	
 

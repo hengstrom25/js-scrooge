@@ -1,5 +1,5 @@
 class BudgetsApiController < ApplicationController
-before_action :logged_in?
+skip_before_action :verify_authenticity_token
 
 	def index
 		budgets = Budget.where(user_id: current_user.id)
@@ -16,10 +16,8 @@ before_action :logged_in?
 	end
 	
 	def create
-	    budget = Budget.new
-	    budget.user_id = current_user.id if current_user
-	    budget.save
-		render json: budget
+    	budget = Budget.create
+    	render json: budget, status: 201
 	end
 	
 	

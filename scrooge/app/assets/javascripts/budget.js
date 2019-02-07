@@ -1,11 +1,11 @@
-$(function() {
-	console.log('budget.js loaded...');
-	getBudgets();
-});
+//$(function() {
+//	console.log('budget.js loaded...');
+//	getBudgets();
+//});
 
-let budgets = [];
+//let budgets = [];
 
-function getBudgets() {
+function getBudgets(budgetsCallback) {
 	$.ajax({
 		url: '/api/budgets',
 		method: 'get',

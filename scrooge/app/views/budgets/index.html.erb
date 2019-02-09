@@ -5,13 +5,17 @@
 	<%= link_to 'Add New Budget', new_budget_path %>
 
 <script type="text/javascript">
-$(function() {
-	$.get('/api/budgets', function(data) {
-		var s = '';
-		data.forEach(function(budget) {
-			s += '<h3><a href= "/budgets/'+budget.id+'">'+budget.name+'</a></h3>';
-		});
-		$('#budgets').html(s);
-	});
+$document.load(function() {
+	getBudgets(budgetCallback);
 });
+
+//$(function() {
+//	$.get('/api/budgets', function(data) {
+//		var s = '';
+//		data.forEach(function(budget) {
+//			s += '<h3><a href= "/budgets/'+budget.id+'">'+budget.name+'</a></h3>';
+//		});
+//		$('#budgets').html(s);
+//	});
+//});
 </script>

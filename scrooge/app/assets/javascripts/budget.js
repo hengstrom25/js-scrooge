@@ -18,6 +18,22 @@ function getBudgets(budgetsCallback) {
 	});
 	
 	console.log("here are the budgets:", budgets);
+	budgetsCallback(budgets);
+	});
+}
+
+function getBudget(budgetId, budgetCallback) {
+	$.ajax({
+		url: '/api/budget' + budgetId,
+		method: 'get', 
+		dataType: 'json'
+	})done(function(response){
+	console.log('response: ', response);
+	
+	budget = response
+	
+	console.log("here is your budget:", budget);
+	budgetCallback(budget);
 	});
 }
 
@@ -25,7 +41,7 @@ class Budget {
 	constructor(name, amount, user_id) {
 		this.name = name;
 		this.amount = amount;
-		this.user_id = user_id;
+		//this.user_id = user_id;
 	};
 }
 

@@ -1,53 +1,72 @@
+
 <h1>Budget</h1>
+<%= form_for @budget do |f| %>
+
+  <% if @budget.errors.any? %>
+    <div id="error_explanation">
+      <p>Please see following errors:</p>
+      <ul>
+        <% @budget.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 	
-<form>
-	<div>
-	Name:<br>
-	<input id="name"><br><br>
+	<div class="field<%= ' field_with_errors' if @budget.errors[:name].any? %>">
+	<%= f.label :name %><br>
+	<%= f.text_field :name %><br><br>
 	</div>
 	
-	<div>
-	Amount:<br>
-	<input id="amount"><br><br>
+	<div class="field<%= ' field_with_errors' if @budget.errors[:amount].any? %>">
+	<%= f.label :amount %><br>
+	<%= f.number_field :amount %><br><br>
 	</div>
 
-	<button type= "button" id="submit_button">Submit</button>
-</form>
+	<button type="button" id="submit_button">Submit</button>
+	
+	
+	<% end %>
+
 
 <script type="text/javascript">
 $(function() {
 
-	getBudget(<%=@id%>, function(budget) {
-		$('#name').val(budget.name);
-		$('#amount').val(budget.amount);
-	});
+//	getBudget(<%=@id%>, function(budget) {
+//		$('#name').val(budget.name);
+//		$('#amount').val(budget.amount);
+//	});
 	
 	$("#submit_button").click(function(event) {
-//		console.log("submit");
+		console.log("submit");
 		
-		let budget = new Budget(
-		$('#name').val(),
-		$('#amount').val(), 
-		<%=@id%>, 
-		0
-		); 
-		console.log("here is the budget for patch", budget);
-		budget.patchBudget();
-	});
+//		let budget = new Budget(
+//		$('#name').val(),
+//		$('#amount').val(), 
+//		<%=@id%>, 
+//		0
+//		); 
+//		console.log("here is the budget for patch", budget);
+//		budget.patchBudget();
+//	});
 //	$('form').submit(function(event) {
 //	console.log("submit");
 //		event.preventDefault();
 		
-//		let values = $(this).serialize();
+		var values = $("#budget_form").serialize();
 		
-//		let posting = $.post('/api/budget/<%=@id%>', values);
+		var posting = $.ajax({
+		url : '/budgets/<%=@id%>',
+		method: 'patch',
+		data: values
+		});
 		
-//		posting.done(function(data) {
-//		let budget = data;
-//		$('#name').text(budget['name']);
-//		$('#amount').text(budget['amount']);
-//		});
-//	});
+		posting.done(function(data) {
+		let budget = data;
+		$('#name').val(budget['name']);
+		$('#amount').val(budget['amount']);
+		});
+	});
 });
 </script>	
 	

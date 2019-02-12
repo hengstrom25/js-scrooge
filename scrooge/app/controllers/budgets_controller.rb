@@ -34,7 +34,8 @@ before_action :logged_in?
 	def update
 		@budget = Budget.find_by(id: params[:id])
 		@budget.update(budget_params)
-		redirect_to budgets_path(@budget)
+		render json: @budget.to_json(:methods => [:current_amount])
+		#redirect_to budgets_path(@budget)
 	end
 	
 	def destroy

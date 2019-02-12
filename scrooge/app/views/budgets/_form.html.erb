@@ -11,29 +11,43 @@
 	<input id="amount"><br><br>
 	</div>
 
-	<input type="submit">
+	<button type= "button" id="submit_button">Submit</button>
 </form>
 
 <script type="text/javascript">
 $(function() {
+
 	getBudget(<%=@id%>, function(budget) {
-		$('#name').html(budget.name);
-		$('#amount').html(budget.amount);
+		$('#name').val(budget.name);
+		$('#amount').val(budget.amount);
 	});
-	$('form').submit(function(event) {
-	console.log("submit");
-		event.preventDefault();
+	
+	$("#submit_button").click(function(event) {
+//		console.log("submit");
 		
-		let values = $(this).serialize();
-		
-		let posting = $.post('/api/budget/<%=@id%>', values);
-		
-		posting.done(function(data) {
-		let budget = data;
-		$('#name').text(budget['name']);
-		$('#amount').text(budget['amount']);
-		});
+		let budget = new Budget(
+		$('#name').val(),
+		$('#amount').val(), 
+		<%=@id%>, 
+		0
+		); 
+		console.log("here is the budget for patch", budget);
+		budget.patchBudget();
 	});
+//	$('form').submit(function(event) {
+//	console.log("submit");
+//		event.preventDefault();
+		
+//		let values = $(this).serialize();
+		
+//		let posting = $.post('/api/budget/<%=@id%>', values);
+		
+//		posting.done(function(data) {
+//		let budget = data;
+//		$('#name').text(budget['name']);
+//		$('#amount').text(budget['amount']);
+//		});
+//	});
 });
 </script>	
 	

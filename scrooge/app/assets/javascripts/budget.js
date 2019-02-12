@@ -49,6 +49,18 @@ function getBudget(budgetId, budgetCallback) {
 	});
 }
 
+Budget.prototype.patchBudget = function() {
+	$.ajax({
+		url: '/api/budget/' + this.id,
+		method: 'patch', 
+		dataType: 'json', 
+		contentType: 'application/json;charset=utf-8', 
+		//data: JSON.stringify(this)
+		data: '{"name": "Zachary", "amount": "250"}'
+	}).done(function(response){
+});
+}
+
 
 
 Budget.prototype.showBudgetDetails= function() {

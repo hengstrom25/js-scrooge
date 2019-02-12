@@ -30,7 +30,11 @@ skip_before_action :verify_authenticity_token
 	
 	def update
 		budget = Budget.find_by(id: params[:id])
+		puts "x"
+		puts response.body
+		puts "y"
 		budget_params = JSON.parse(response.body)
+
 		budget.update(budget_params)
 		render json: budget
 	end

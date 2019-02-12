@@ -12,7 +12,7 @@
 	//function(budgets) is assigned to formal name of budgetsCallback
 		let s = '';
 		budgets.forEach(function(budget) {
-			s += '<h3><a href= "/budgets/'+budget.id+'">'+budget.name+'</a></h3>';
+			s += budget.showBudgetSummary();
 		});
 		$('#budgets').html(s);
 	});

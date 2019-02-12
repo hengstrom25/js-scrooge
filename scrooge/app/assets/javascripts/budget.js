@@ -69,3 +69,7 @@ return(`
 `)
 };
 
+Budget.prototype.showBudgetSummary= function() {
+	return '<h3><a href= "/budgets/'+this.id+'">'+this.name+'</a></h3>';
+	//html summary line for budget index page
+}

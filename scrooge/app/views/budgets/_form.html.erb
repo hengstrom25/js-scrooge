@@ -23,13 +23,13 @@
 	<%= f.number_field :amount %><br><br>
 	</div>
 
-	<button type="button" id="submit_button">Submit</button>
-	
+	<!--<button type="button" id="submit_button">Submit</button>-->
+	<%=f.submit%>
 	
 	<% end %>
 
 
-<script type="text/javascript">
+<script type="text/javascript" charset="utf-8">
 $(function() {
 
 //	getBudget(<%=@id%>, function(budget) {
@@ -37,8 +37,8 @@ $(function() {
 //		$('#amount').val(budget.amount);
 //	});
 	
-	$("#submit_button").click(function(event) {
-		console.log("submit");
+//	$("#submit_button").click(function(event) {
+//		console.log("submit");
 		
 //		let budget = new Budget(
 //		$('#name').val(),
@@ -49,11 +49,11 @@ $(function() {
 //		console.log("here is the budget for patch", budget);
 //		budget.patchBudget();
 //	});
-//	$('form').submit(function(event) {
-//	console.log("submit");
-//		event.preventDefault();
+	$('form').submit(function(event) {
+	console.log("submit");
+		event.preventDefault();
 		
-		var values = $("#budget_form").serialize();
+		var values = $(this).serialize();
 		
 		var posting = $.ajax({
 		url : '/budgets/<%=@id%>',
@@ -65,6 +65,8 @@ $(function() {
 		let budget = data;
 		$('#name').val(budget['name']);
 		$('#amount').val(budget['amount']);
+		
+		window.location = '/budgets/<%=@id%>';
 		});
 	});
 });

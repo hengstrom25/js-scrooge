@@ -10,7 +10,7 @@
 //making sure page is loaded before js runs
 	getBudgets(function(budgets) {
 	//function(budgets) is assigned to formal name of budgetsCallback
-		var s = '';
+		let s = '';
 		budgets.forEach(function(budget) {
 			s += '<h3><a href= "/budgets/'+budget.id+'">'+budget.name+'</a></h3>';
 		});

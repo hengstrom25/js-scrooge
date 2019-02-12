@@ -16,21 +16,20 @@
 
 <script type="text/javascript">
 $(function() {
-	//$.get('/api/budget/<%=@id%>', function(data) {
-	//console.log("here is the data", data);
-	//	$('#name').val(data.name);
-	//	$('#amount').val(data.amount);
-	//});
+	getBudget(<%=@id%>, function(budget) {
+		$('#name').html(budget.name);
+		$('#amount').html(budget.amount);
+	});
 	$('form').submit(function(event) {
 	console.log("submit");
 		event.preventDefault();
 		
-		var values = $(this).serialize();
+		let values = $(this).serialize();
 		
-		var posting = $.post('/api/budget/<%=@id%>', values);
+		let posting = $.post('/api/budget/<%=@id%>', values);
 		
 		posting.done(function(data) {
-		var budget = data;
+		let budget = data;
 		$('#name').text(budget['name']);
 		$('#amount').text(budget['amount']);
 		});

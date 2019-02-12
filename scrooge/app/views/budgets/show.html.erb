@@ -10,13 +10,12 @@
 
 <script type="text/javascript">
 $(document).load(function() {
-	getBudget(budgetId, budgetCallback);
+	getBudget(function(budget) {
+	$.get('/api/budget/<%=@id%>', function(data) {
+		$('#name').html(data.name);
+		$('#amount').html(data.amount);
+		$('#current_amount').html(data.current_amount);
+		});
+	});
 });
-//$(function() {
-//	$.get('/api/budget/<%=@id%>', function(data) {
-//		$('#name').html(data.name);
-//		$('#amount').html(data.amount);
-//		$('#current_amount').html(data.current_amount);
-//	});
-//});
 </script>

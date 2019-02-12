@@ -6,19 +6,21 @@
 //let budgets = [];
 
 function getBudgets(budgetsCallback) {
+//budgetsCallback is a formal argument name. Stands for what is put in () when the function was called.
 	$.ajax({
 		url: '/api/budgets',
 		method: 'get',
 		dataType: 'json'
 	}).done(function(response){
-	console.log('response: ', response);
+		console.log('response: ', response);
 	
-	budgets = response.map(element => {
-		return new Budget(element.name, element.amount, element.id);
-	});
+		let budgets = response.map(element => {
+			return new Budget(element.name, element.amount, element.id);
+		});
 	
-	console.log("here are the budgets:", budgets);
-	budgetsCallback(budgets);
+		console.log("here are the budgets:", budgets);
+		budgetsCallback(budgets);
+		// budgetsCallback(budgets) is a closure
 	});
 }
 
@@ -27,7 +29,7 @@ function getBudget(budgetId, budgetCallback) {
 		url: '/api/budget' + budgetId,
 		method: 'get', 
 		dataType: 'json'
-	})done(function(response){
+	}).done(function(response){
 	console.log('response: ', response);
 	
 	budget = response
@@ -38,10 +40,10 @@ function getBudget(budgetId, budgetCallback) {
 }
 
 class Budget {
-	constructor(name, amount, user_id) {
+	constructor(name, amount, id) {
 		this.name = name;
 		this.amount = amount;
-		//this.user_id = user_id;
+		this.id = id;
 	};
 }
 

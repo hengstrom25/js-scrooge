@@ -9,13 +9,11 @@
 <p><%= link_to "Delete this Budget", budget_path(@budget), method: :delete, data: { confirm: 'Are you sure you want to delete this budget? All of the transactions associated with this budget will also be deleted.' } %></p>
 
 <script type="text/javascript">
-$(document).load(function() {
-	getBudget(function(budget) {
-	$.get('/api/budget/<%=@id%>', function(data) {
-		$('#name').html(data.name);
-		$('#amount').html(data.amount);
-		$('#current_amount').html(data.current_amount);
-		});
+//$(document).load(function() {
+	getBudget(<%=@id%>, function(budget) {
+		$('#name').html(budget.name);
+		$('#amount').html(budget.amount);
+		$('#current_amount').html(budget.current_amount);
 	});
-});
+//});
 </script>

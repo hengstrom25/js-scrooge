@@ -15,7 +15,8 @@ function getBudgets(budgetsCallback) {
 		console.log('response: ', response);
 	
 		let budgets = response.map(element => {
-			return new Budget(element.name, element.amount, element.id);
+			return new Budget(element.name, element.amount, element.id, element.current_amount);
+			// creating new model object for existing Budget
 		});
 	
 		console.log("here are the budgets:", budgets);
@@ -26,13 +27,13 @@ function getBudgets(budgetsCallback) {
 
 function getBudget(budgetId, budgetCallback) {
 	$.ajax({
-		url: '/api/budget' + budgetId,
+		url: '/api/budget/' + budgetId,
 		method: 'get', 
 		dataType: 'json'
 	}).done(function(response){
 	console.log('response: ', response);
 	
-	budget = response
+	budget = new Budget(response.name, response.amount, response.id, response.current_amount);
 	
 	console.log("here is your budget:", budget);
 	budgetCallback(budget);
@@ -40,10 +41,11 @@ function getBudget(budgetId, budgetCallback) {
 }
 
 class Budget {
-	constructor(name, amount, id) {
+	constructor(name, amount, id, current_amount) {
 		this.name = name;
 		this.amount = amount;
 		this.id = id;
+		this.current_amount = current_amount;
 	};
 }
 

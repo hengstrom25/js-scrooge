@@ -1,3 +1,4 @@
+
 <h2>Your Budgets</h2>
 <div id="budgets"></div>
 
@@ -5,7 +6,8 @@
 	<%= link_to 'Add New Budget', new_budget_path %>
 
 <script type="text/javascript">
-$(document).load(function() {
+//$(document).load(function() {
+//making sure page is loaded before js runs
 	getBudgets(function(budgets) {
 	//function(budgets) is assigned to formal name of budgetsCallback
 		var s = '';
@@ -14,5 +16,5 @@ $(document).load(function() {
 		});
 		$('#budgets').html(s);
 	});
-});
+//});
 </script>

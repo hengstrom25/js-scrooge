@@ -5,6 +5,15 @@
 
 //let budgets = [];
 
+class Budget {
+	constructor(name, amount, id, current_amount) {
+		this.name = name;
+		this.amount = amount;
+		this.id = id;
+		this.current_amount = current_amount;
+	};
+}
+
 function getBudgets(budgetsCallback) {
 //budgetsCallback is a formal argument name. Stands for what is put in () when the function was called.
 	$.ajax({
@@ -40,14 +49,7 @@ function getBudget(budgetId, budgetCallback) {
 	});
 }
 
-class Budget {
-	constructor(name, amount, id, current_amount) {
-		this.name = name;
-		this.amount = amount;
-		this.id = id;
-		this.current_amount = current_amount;
-	};
-}
+
 
 Budget.prototype.showBudgetDetails= function() {
 return(`

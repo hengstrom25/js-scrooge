@@ -2,6 +2,7 @@ class BudgetsApiController < ApplicationController
 skip_before_action :verify_authenticity_token
 
 	def index
+		#local variables, instance variables not required if not called into view
 		budgets = Budget.where(user_id: current_user.id)
 		render json: budgets
 	end

@@ -33,4 +33,6 @@ delete 'logout' => 'sessions#destroy'
  	post '/api/budget' => 'budgets_api#create'
  	get '/api/budget/:id' => 'budgets_api#show'
  	patch '/api/budget/:id' => 'budgets_api#update'
+ 	
+ 	get '/api/budget/:budget_id/transactions' => 'transactions_api#index'
 end

@@ -6,7 +6,7 @@
 
 <p><button id="transactions_button">See Transactions</button></p>
 
-<div id="transactions_section"> 
+<div id="transactions_section" style="display:none"> 
 		<table id ="transactions_table" class="table">
 				<thead><td>Date</td><td>Amount</td><td>Description</td>
 					
@@ -26,20 +26,34 @@ $(document).ready(function() {
 		$('#current_amount').html(budget.current_amount);
 	});
 
-
+	let show_transactions = false
+	
+	let transactions_loaded = false
+	
+	
 	$("#transactions_button").click(() => {
-	console.log("got click")
-	 	getTransactions(<%=@id%>, transactions => {
-	 		$('#transactions_table').append(
-	 			transactions.map(transaction => 
-	 					`<tr>
-	 					<td>${transaction.date}</td>
-	 					<td>${transaction.amount}</td>
-	 					<td>${transaction.description}</td>
-	 					</tr>`
-	 			));
-	 	});
-	});
+		if (show_transactions) { 
+			show_transactions = false;
+			$("#transactions_section").hide();
+		} else {
+			show_transactions = true;
+			$("#transactions_section").show();
+		}
+	
+	 	if (!transactions_loaded) {
+	 		getTransactions(<%=@id%>, transactions => {
+	 			$('#transactions_table').append(
+	 				transactions.map(transaction => 
+	 						`<tr>
+	 						<td>${transaction.date}</td>
+	 						<td>${transaction.amount}</td>
+	 						<td>${transaction.description}</td>
+	 						</tr>`
+	 				));
+	 		});
+	 		transactions_loaded = true;
+		} 
+	});	
 });
 </script>
 

@@ -23,7 +23,7 @@ function getBudgets(budgetsCallback) {
 	}).done(function(response){
 		console.log('response: ', response);
 	
-		let budgets = response.map(element => {
+		const budgets = response.map(element => {
 			return new Budget(element.name, element.amount, element.id, element.current_amount);
 			// creating new model object for existing Budget
 		});
@@ -42,7 +42,7 @@ function getBudget(budgetId, budgetCallback) {
 	}).done(function(response){
 	console.log('response: ', response);
 	
-	budget = new Budget(response.name, response.amount, response.id, response.current_amount);
+	const budget = new Budget(response.name, response.amount, response.id, response.current_amount);
 	
 	console.log("here is your budget:", budget);
 	budgetCallback(budget);

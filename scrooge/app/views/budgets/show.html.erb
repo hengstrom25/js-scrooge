@@ -11,6 +11,7 @@
 				<thead><td>Date</td><td>Amount</td><td>Description</td>
 					
 				</thead>
+				<tbody></tbody>
 		</table>
 		<p><%= link_to "Add Transaction", new_budget_transaction_path(@budget) %></p>
 </div>
@@ -48,7 +49,8 @@ $(document).ready(function() {
 	
 	 	if (!transactions_loaded) {
 	 		getTransactions(<%=@id%>, transactions => {
-	 			$('#transactions_table').append(
+	 			$('tbody').append(
+	 			//jquery on an element type "tbody"
 	 				transactions.map(transaction => 
 	 						`<tr>
 	 						<td>${transaction.date}</td>

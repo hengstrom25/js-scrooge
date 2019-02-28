@@ -39,9 +39,11 @@ $(document).ready(function() {
 		if (show_transactions) { 
 			show_transactions = false;
 			$("#transactions_section").hide();
+			$("#transactions_button").html('Show Transactions');
 		} else {
 			show_transactions = true;
 			$("#transactions_section").show();
+			$("#transactions_button").html('Hide Transactions');
 		}
 	
 	 	if (!transactions_loaded) {

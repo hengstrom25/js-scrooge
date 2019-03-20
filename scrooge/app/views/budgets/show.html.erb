@@ -5,6 +5,7 @@
 <br>
 
 <p><button id="transactions_button">See Transactions</button></p>
+<p><button id="filtered_transactions_button">See Transactions over $25</button></p>
 
 <div id="transactions_section" style="display:none"> 
 		<table id ="transactions_table" class="table">
@@ -63,6 +64,34 @@ $(document).ready(function() {
 	 		transactions_loaded = true;
 		} 
 	});	
+	
+	$("#filtered_transactions_button").click(() => {
+		if (show_transactions) { 
+			show_transactions = false;
+			$("#transactions_section").hide();
+			$("#transactions_button").html('Show Transactions');
+		} else {
+			show_transactions = true;
+			$("#transactions_section").show();
+			$("#transactions_button").html('Hide Transactions');
+		}
+	
+	 	if (!transactions_loaded) {
+	 		getLargeTransactions(<%=@id%>, transactions => {
+	 			$('tbody').append(
+	 			//jquery on an element type "tbody"
+	 				transactions.map(transaction => 
+	 						`<tr>
+	 						<td>${transaction.date}</td>
+	 						<td>${transaction.amount}</td>
+	 						<td>${transaction.description}</td>
+	 						<td><a href='/transactions/${transaction.id}'>Details</a></td>
+	 						</tr>`
+	 				));
+	 		});
+	 		transactions_loaded = true;
+		} 
+	});		
 });
 </script>
 

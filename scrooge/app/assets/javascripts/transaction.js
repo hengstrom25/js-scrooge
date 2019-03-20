@@ -10,7 +10,7 @@ class Transaction {
 }
 
 function getTransactions(budget_id, transactionsCallback) {
-//budgetsCallback is a formal argument name. Stands for what is put in () when the function was called.
+//transactionsCallback is a formal argument name. Stands for what is put in () when the function was called.
 	$.ajax({
 		url: `/api/budget/${budget_id}/transactions`,
 		method: 'get',
@@ -28,4 +28,25 @@ function getTransactions(budget_id, transactionsCallback) {
 		// transactionsCallback(transactions) is a closure
 	});
 }
+
+function getLargeTransactions(budget_id, transactionsCallback) {
+//transactionsCallback is a formal argument name. Stands for what is put in () when the function was called.
+	$.ajax({
+		url: `/api/budget/${budget_id}/transactions`,
+		method: 'get',
+		dataType: 'json'
+	}).done(function(response){
+		console.log('response: ', response);
+	
+		const transactions = response.filter(element => {
+			return new Transaction(element.id, element.date, element.amount, element.description, budget_id, element.is_deposit);
+			// creating new model object for existing Budget
+		});
+	
+		console.log("here are the transactions:", transactions);
+		transactionsCallback(transactions);
+		// transactionsCallback(transactions) is a closure
+	});
+}
+
 

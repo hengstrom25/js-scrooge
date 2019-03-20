@@ -9,7 +9,7 @@ skip_before_action :verify_authenticity_token
 	
 	def show
 		budget = Budget.find_by(id: params[:id])
-		render json: budget.to_json(:methods => [:current_amount])
+		render json: budget
 	end
 	
 	def new

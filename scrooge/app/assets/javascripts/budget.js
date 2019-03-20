@@ -6,11 +6,11 @@
 //let budgets = [];
 
 class Budget {
-	constructor(name, amount, id, current_amount) {
-		this.name = name;
-		this.amount = amount;
-		this.id = id;
-		this.current_amount = current_amount;
+	constructor(budgetObject) {
+		this.name = budgetObject.name;
+		this.amount = budgetObject.amount;
+		this.id = budgetObject.id;
+		this.current_amount = budgetObject.current_amount;
 	};
 }
 
@@ -24,7 +24,7 @@ function getBudgets(budgetsCallback) {
 		console.log('response: ', response);
 	
 		const budgets = response.map(element => {
-			return new Budget(element.name, element.amount, element.id, element.current_amount);
+			return new Budget(element);
 			// creating new model object for existing Budget
 		});
 	
@@ -42,7 +42,7 @@ function getBudget(budgetId, budgetCallback) {
 	}).done(function(response){
 	console.log('response: ', response);
 	
-	const budget = new Budget(response.name, response.amount, response.id, response.current_amount);
+	const budget = new Budget(response);
 	
 	console.log("here is your budget:", budget);
 	budgetCallback(budget);
@@ -72,4 +72,10 @@ return(`
 Budget.prototype.showBudgetSummary= function() {
 	return '<h3><a href= "/budgets/'+this.id+'">'+this.name+'</a></h3>';
 	//html summary line for budget index page
+	//e.g. "Zachary", "Home" on view page
 }
+
+// ES6
+//Budget.prototype.showBudgetSummary = () =>
+//	'<h3><a href= "/budgets/'+this.id+'">'+this.name+'</a></h3>';
+

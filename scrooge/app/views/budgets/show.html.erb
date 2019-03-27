@@ -5,7 +5,7 @@
 <br>
 
 <p><button id="transactions_button">See Transactions</button></p>
-<p><button id="filtered_transactions_button">See Transactions over $25</button></p>
+<p><button id="filtered_transactions_button" style="display: none">Show Only Transactions Over $25</button></p>
 
 <div id="transactions_section" style="display:none"> 
 		<table id ="transactions_table" class="table">
@@ -36,23 +36,23 @@ $(document).ready(function() {
 	
 	let transactions_loaded = false
 	
-	let transaction_list = null
-	
+	let transactions_filtered = false
 	
 	$("#transactions_button").click(() => {
 		if (show_transactions) { 
 			show_transactions = false;
 			$("#transactions_section").hide();
 			$("#transactions_button").html('Show Transactions');
+			$("#filtered_transactions_button").hide();
 		} else {
 			show_transactions = true;
 			$("#transactions_section").show();
 			$("#transactions_button").html('Hide Transactions');
+			$("#filtered_transactions_button").show();
 		}
 	
 	 	if (!transactions_loaded) {
 	 		getTransactions(<%=@id%>, transactions => {
-	 			transaction_list = transactions
 	 			$('tbody').append(
 	 			//jquery on an element type "tbody"
 	 				transactions.map(transaction => 
@@ -64,21 +64,24 @@ $(document).ready(function() {
 	});	
 	
 	$("#filtered_transactions_button").click(() => {
-	 	if (!transactions_loaded) {
-	 		getLargeTransactions(<%=@id%>, transactions => {
-	 			$('tbody').append(
-	 			//jquery on an element type "tbody"
-	 				transactions.map(transaction => 
-	 						`<tr>
-	 						<td>${transaction.date}</td>
-	 						<td>${transaction.amount}</td>
-	 						<td>${transaction.description}</td>
-	 						<td><a href='/transactions/${transaction.id}'>Details</a></td>
-	 						</tr>`
-	 				));
-	 		});
-	 		transactions_loaded = true;
+		if (transactions_filtered) {
+			transactions_filtered = false;
+			$("#filtered_transactions_button").html('Show Only Transactions Over $25');
+		} else {
+			transactions_filtered = true;
+			$("#filtered_transactions_button").html('Show All Transactions');
 		} 
+		
+		getTransactions(<%=@id%>, transactions => {
+		$('tbody').empty();
+	 	$('tbody').append(
+	 	//jquery on an element type "tbody"
+	 		transactions.filter(transaction =>
+	 			transaction.amount > 25 || !transactions_filtered)
+	 		.map(transaction => 
+				transaction.render()
+	 		));
+		});
 	});		
 });
 </script>

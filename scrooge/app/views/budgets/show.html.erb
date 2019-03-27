@@ -36,6 +36,8 @@ $(document).ready(function() {
 	
 	let transactions_loaded = false
 	
+	let transaction_list = null
+	
 	
 	$("#transactions_button").click(() => {
 		if (show_transactions) { 
@@ -50,15 +52,11 @@ $(document).ready(function() {
 	
 	 	if (!transactions_loaded) {
 	 		getTransactions(<%=@id%>, transactions => {
+	 			transaction_list = transactions
 	 			$('tbody').append(
 	 			//jquery on an element type "tbody"
 	 				transactions.map(transaction => 
-	 						`<tr>
-	 						<td>${transaction.date}</td>
-	 						<td>${transaction.amount}</td>
-	 						<td>${transaction.description}</td>
-	 						<td><a href='/transactions/${transaction.id}'>Details</a></td>
-	 						</tr>`
+						transaction.render()
 	 				));
 	 		});
 	 		transactions_loaded = true;
@@ -66,16 +64,6 @@ $(document).ready(function() {
 	});	
 	
 	$("#filtered_transactions_button").click(() => {
-		if (show_transactions) { 
-			show_transactions = false;
-			$("#transactions_section").hide();
-			$("#transactions_button").html('Show Transactions');
-		} else {
-			show_transactions = true;
-			$("#transactions_section").show();
-			$("#transactions_button").html('Hide Transactions');
-		}
-	
 	 	if (!transactions_loaded) {
 	 		getLargeTransactions(<%=@id%>, transactions => {
 	 			$('tbody').append(
